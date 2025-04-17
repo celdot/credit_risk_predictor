@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def home():
     return render_template('frontend.html')
 
 @app.route('/submit', methods=['POST'])

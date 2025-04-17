@@ -1,0 +1,8 @@
+runtime: python310  # or python39 if you're using 3.9
+entrypoint: gunicorn -b :$PORT app:app
+
+instance_class: F1  # Optional: cheapest tier for free quota
+
+handlers:
+- url: /.*
+  script: auto

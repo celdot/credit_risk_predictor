@@ -1,0 +1,12 @@
+steps:
+- name: "gcr.io/cloud-builders/docker"
+  args:
+  - build
+  - "--tag=gcr.io/bubbly-yeti-457113-s2/credit-risk-flask-server-image"
+  - "--file=./Dockerfile"
+  - "."
+  
+images:
+- "gcr.io/bubbly-yeti-457113-s2/credit-risk-flask-server-image"
+
+

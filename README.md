@@ -80,7 +80,7 @@ weighted avg       0.81      0.83      0.81      3259
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/credit-default-prediction.git
+git clone https://github.com/celdot/credit-default-prediction.git
 cd credit-default-prediction
 ```
 
@@ -113,8 +113,4 @@ http://127.0.0.1:5000/
 
 - **Frontend** (GitHub Pages): [Visit Website](https://your-github-username.github.io/credit-default-prediction/)
 - **Backend** (Google Cloud): Receives user input and returns model predictions
-
-## License
-
-This project is licensed under the MIT License. You are free to use and modify it for personal or commercial purposes.
 

@@ -1,169 +1,70 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fake News Detector</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #f4f4f9;
-      min-height: 100vh;
-    }
-
-    h1 {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      margin: 0;
-      padding: 20px 0;
-      font-size: 2.5em;
-      font-weight: bold;
-      color: #007BFF;
-      background-color: white;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-
-    .navbar {
-      margin-top: 80px; /* Push the navbar down to avoid overlapping the h1 */
-      display: flex;
-      justify-content: center;
-      background-color: #333;
-      width: 100%;
-      padding: 0.5em 0;
-    }
-
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      font-size: 1.2em;
-    }
-
-    .navbar a:hover {
-      background-color: #575757;
-    }
-
-    .content {
-      text-align: center;
-      max-width: 600px;
-      width: 90%;
-      margin: 20px auto;
-    }
-
-    form {
-      margin-top: 20px;
-    }
-
-    label {
-      display: block;
-      font-size: 1.2em;
-      margin-bottom: 10px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 1em;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      background-color: #007BFF;
-      color: white;
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    #result {
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: #333;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Are you at risk of defaulting on your loan?</title>
 </head>
-</body>
-  <h1>Fake News Detector in Blue Sky</h1>
-  
-  <!-- Navigation Bar -->
-  <div class="navbar">
-    <a href="index.html">Test News</a>
-    <a href="monitor.html">Monitor the Model</a>
-  </div>
+<body>
+    <h1>Are you at risk of defaulting on your loan?</h1>
+    <h3>Input information about yourself and your loan in this form</h3>
+    <form action="/submit" method="POST">
 
-  <div class="content">
-    <form id="userForm">
-      <label for="userInput">Type in the title of the news article you want to test:</label>
-      <input type="text" id="userInput" name="userInput" required>
-      <button type="submit">Submit</button>
+        <label for="age">What's your age?</label>
+        <select name="age" id="age" required>
+            <option value="" disabled selected>Select your age</option>
+            {% for i in range(18, 81) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="income">What's your income?</label>
+        <input type="number" name="income" id="income" required><br><br>
+
+        <label for="living">What is your living situation?</label>
+        <select name="living" id="living" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="0">Own my home</option>
+            <option value="1">Have a mortgage</option>
+            <option value="2">Renting</option>
+        </select><br><br>
+
+        <label for="employment">Years of employment:</label>
+        <input type="number" name="employment" id="employment" required><br><br>
+
+        <label for="purpose">Purpose of the loan:</label>
+        <select name="purpose" id="purpose" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="0">Personal</option>
+            <option value="1">Education</option>
+            <option value="2">Medical</option>
+            <option value="3">Venture</option>
+            <option value="4">Home improvement</option>
+            <option value="5">Debt consolidation</option>
+        </select><br><br>
+
+        <label for="amount">Loan amount:</label>
+        <input type="number" name="amount" id="amount" required><br><br>
+
+        <label for="interest">Interest rate:</label>
+        <input type="number" name="interest" id="interest" step="0.01" required><br><br>
+
+        <label for="percentage">Loan as % of income:</label>
+        <input type="number" name="percentage" id="percentage" step="0.01" required><br><br>
+
+        <label for="status">Current loan status:</label>
+        <select name="status" id="status" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="0">Fully Paid</option>
+            <option value="1">Charged Off</option>
+            <option value="2">Current</option>
+        </select><br><br>
+
+        <label for="bank_years">Years with bank:</label>
+        <input type="number" name="bank_years" id="bank_years" required><br><br>
+
+        <input type="submit" value="Submit">
     </form>
-
-    <p id="result">Your result will appear here.</p>
-  </div>
-
-  <script>
-    const form = document.getElementById('userForm');
-    const resultParagraph = document.getElementById('result'); // Define the result paragraph
-    const userInputField = document.getElementById('userInput');
-  
-    // Handle form submission
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault(); // Prevent default form submission
-      resultParagraph.textContent = `Please wait a few minutes. The prediction is taking a bit of time.`; // Display the result
-      await sendInput();
-      userInputField.value = ""; // Clear the input field
-    });
-  
-    // Handle Enter keypress in the input field
-    userInputField.addEventListener('keydown', async (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent default Enter behavior (e.g., form submission)
-        resultParagraph.textContent = `Please wait around 5 minutes. The prediction is taking a bit of time.`; // Display the result
-        await sendInput();
-        userInputField.value = ""; // Clear the input field
-      }
-    });
-  
-    // Function to send input to the server
-    async function sendInput() {
-      const userInput = userInputField.value;
-      try {
-        const response = await fetch('https://fake-news-flask-server-image-949207919441.europe-west2.run.app/receive', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ input: userInput }),
-        });
-        if (response.ok) {
-          const responseData = await response.json(); // Parse the JSON response
-          resultParagraph.textContent = `${responseData.results}`; // Display the result
-          userInputField.value = ""; // Clear the input field
-        } else {
-          resultParagraph.textContent = 'Error processing input.';
-        }
-      } catch (error) {
-        resultParagraph.textContent = 'Error processing input.';
-      }
-    }
-  </script>
 </body>
 </html>

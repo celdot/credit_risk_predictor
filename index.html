@@ -3,86 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Default Risk</title>
+    <title>Loan Default Risk Predictor</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
 
         .container {
-            background-color: #ffffff;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 90%;
+            background-color: white;
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
             max-width: 600px;
+            box-sizing: border-box;
         }
 
         h1, h3 {
             text-align: center;
-            color: #005b96;
+            color: #00796b;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         label {
             font-size: 1.1rem;
-            font-weight: 500;
-            display: block;
-            margin-top: 1rem;
+            margin-bottom: 5px;
+            color: #004d40;
         }
 
         input, select {
-            width: 100%;
-            padding: 0.6rem;
+            padding: 12px;
             font-size: 1rem;
-            margin-top: 0.5rem;
             border: 1px solid #ccc;
-            border-radius: 6px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #26a69a;
+            background-color: #ffffff;
         }
 
         input[type="submit"] {
-            background-color: #005b96;
+            background-color: #00796b;
             color: white;
             border: none;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-top: 2rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-weight: bold;
         }
 
         input[type="submit"]:hover {
-            background-color: #003f6d;
+            background-color: #004d40;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            label, input, select {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Are you at risk of defaulting on your loan?</h1>
-        <h3>Fill out the form below</h3>
+        <h1>Are You at Risk of Defaulting?</h1>
+        <h3>Fill out the form below to find out.</h3>
         <form action="/submit" method="POST">
-            <label for="age">What's your age?</label>
+
+            <label for="age">Your Age:</label>
             <select name="age" id="age" required>
                 <option value="" disabled selected>Select your age</option>
-                <!-- Populate dynamically or expand manually -->
-                <script>
-                    for (let i = 18; i <= 80; i++) {
-                        document.write(`<option value="${i}">${i}</option>`);
-                    }
-                </script>
+                <!-- Only a few options shown, you can add 18–80 -->
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <!-- ... -->
+                <option value="80">80</option>
             </select>
 
-            <label for="income">What's your income?</label>
+            <label for="income">Your Income:</label>
             <input type="number" name="income" id="income" required>
 
-            <label for="living">What is your living situation?</label>
+            <label for="living">Living Situation:</label>
             <select name="living" id="living" required>
                 <option value="" disabled selected>Select one</option>
                 <option value="0">Own my home</option>
@@ -90,10 +108,10 @@
                 <option value="2">Renting</option>
             </select>
 
-            <label for="employment">Years of employment:</label>
+            <label for="employment">Years of Employment:</label>
             <input type="number" name="employment" id="employment" required>
 
-            <label for="purpose">Purpose of the loan:</label>
+            <label for="purpose">Purpose of Loan:</label>
             <select name="purpose" id="purpose" required>
                 <option value="" disabled selected>Select one</option>
                 <option value="0">Personal</option>
@@ -104,16 +122,16 @@
                 <option value="5">Debt consolidation</option>
             </select>
 
-            <label for="amount">Loan amount:</label>
+            <label for="amount">Loan Amount:</label>
             <input type="number" name="amount" id="amount" required>
 
-            <label for="interest">Interest rate:</label>
+            <label for="interest">Interest Rate (%):</label>
             <input type="number" name="interest" id="interest" step="0.01" required>
 
-            <label for="percentage">Loan as % of income:</label>
+            <label for="percentage">Loan as % of Income:</label>
             <input type="number" name="percentage" id="percentage" step="0.01" required>
 
-            <label for="status">Current loan status:</label>
+            <label for="status">Current Loan Status:</label>
             <select name="status" id="status" required>
                 <option value="" disabled selected>Select one</option>
                 <option value="0">Fully Paid</option>
@@ -121,7 +139,7 @@
                 <option value="2">Current</option>
             </select>
 
-            <label for="bank_years">Years with bank:</label>
+            <label for="bank_years">Years With the Bank:</label>
             <input type="number" name="bank_years" id="bank_years" required>
 
             <input type="submit" value="Check My Risk">

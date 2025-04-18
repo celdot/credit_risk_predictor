@@ -1,70 +1,131 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Are you at risk of defaulting on your loan?</title>
+    <title>Loan Default Risk</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: #005b96;
+        }
+
+        label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.6rem;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="submit"] {
+            background-color: #005b96;
+            color: white;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #003f6d;
+        }
+    </style>
 </head>
 <body>
-    <h1>Are you at risk of defaulting on your loan?</h1>
-    <h3>Input information about yourself and your loan in this form</h3>
-    <form action="/submit" method="POST">
+    <div class="container">
+        <h1>Are you at risk of defaulting on your loan?</h1>
+        <h3>Fill out the form below</h3>
+        <form action="/submit" method="POST">
+            <label for="age">What's your age?</label>
+            <select name="age" id="age" required>
+                <option value="" disabled selected>Select your age</option>
+                <!-- Populate dynamically or expand manually -->
+                <script>
+                    for (let i = 18; i <= 80; i++) {
+                        document.write(`<option value="${i}">${i}</option>`);
+                    }
+                </script>
+            </select>
 
-        <label for="age">What's your age?</label>
-        <select name="age" id="age" required>
-            <option value="" disabled selected>Select your age</option>
-            {% for i in range(18, 81) %}
-                <option value="{{ i }}">{{ i }}</option>
-            {% endfor %}
-        </select><br><br>
+            <label for="income">What's your income?</label>
+            <input type="number" name="income" id="income" required>
 
-        <label for="income">What's your income?</label>
-        <input type="number" name="income" id="income" required><br><br>
+            <label for="living">What is your living situation?</label>
+            <select name="living" id="living" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="0">Own my home</option>
+                <option value="1">Have a mortgage</option>
+                <option value="2">Renting</option>
+            </select>
 
-        <label for="living">What is your living situation?</label>
-        <select name="living" id="living" required>
-            <option value="" disabled selected>Select one</option>
-            <option value="0">Own my home</option>
-            <option value="1">Have a mortgage</option>
-            <option value="2">Renting</option>
-        </select><br><br>
+            <label for="employment">Years of employment:</label>
+            <input type="number" name="employment" id="employment" required>
 
-        <label for="employment">Years of employment:</label>
-        <input type="number" name="employment" id="employment" required><br><br>
+            <label for="purpose">Purpose of the loan:</label>
+            <select name="purpose" id="purpose" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="0">Personal</option>
+                <option value="1">Education</option>
+                <option value="2">Medical</option>
+                <option value="3">Venture</option>
+                <option value="4">Home improvement</option>
+                <option value="5">Debt consolidation</option>
+            </select>
 
-        <label for="purpose">Purpose of the loan:</label>
-        <select name="purpose" id="purpose" required>
-            <option value="" disabled selected>Select one</option>
-            <option value="0">Personal</option>
-            <option value="1">Education</option>
-            <option value="2">Medical</option>
-            <option value="3">Venture</option>
-            <option value="4">Home improvement</option>
-            <option value="5">Debt consolidation</option>
-        </select><br><br>
+            <label for="amount">Loan amount:</label>
+            <input type="number" name="amount" id="amount" required>
 
-        <label for="amount">Loan amount:</label>
-        <input type="number" name="amount" id="amount" required><br><br>
+            <label for="interest">Interest rate:</label>
+            <input type="number" name="interest" id="interest" step="0.01" required>
 
-        <label for="interest">Interest rate:</label>
-        <input type="number" name="interest" id="interest" step="0.01" required><br><br>
+            <label for="percentage">Loan as % of income:</label>
+            <input type="number" name="percentage" id="percentage" step="0.01" required>
 
-        <label for="percentage">Loan as % of income:</label>
-        <input type="number" name="percentage" id="percentage" step="0.01" required><br><br>
+            <label for="status">Current loan status:</label>
+            <select name="status" id="status" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="0">Fully Paid</option>
+                <option value="1">Charged Off</option>
+                <option value="2">Current</option>
+            </select>
 
-        <label for="status">Current loan status:</label>
-        <select name="status" id="status" required>
-            <option value="" disabled selected>Select one</option>
-            <option value="0">Fully Paid</option>
-            <option value="1">Charged Off</option>
-            <option value="2">Current</option>
-        </select><br><br>
+            <label for="bank_years">Years with bank:</label>
+            <input type="number" name="bank_years" id="bank_years" required>
 
-        <label for="bank_years">Years with bank:</label>
-        <input type="number" name="bank_years" id="bank_years" required><br><br>
-
-        <input type="submit" value="Submit">
-    </form>
+            <input type="submit" value="Check My Risk">
+        </form>
+    </div>
 </body>
 </html>

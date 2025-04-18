@@ -6,7 +6,7 @@ from flask_cors import CORS
 from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
-CORS(app)  # Allow requests from your GitHub Pages frontend
+CORS(app)  # Allow requests from the GitHub Pages frontend
 
 @app.route('/')
 def home():

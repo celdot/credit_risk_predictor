@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake News Detector</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f4f4f9;
+      min-height: 100vh;
+    }
+
+    h1 {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      padding: 20px 0;
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #007BFF;
+      background-color: white;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .navbar {
+      margin-top: 80px; /* Push the navbar down to avoid overlapping the h1 */
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+      width: 100%;
+      padding: 0.5em 0;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      font-size: 1.2em;
+    }
+
+    .navbar a:hover {
+      background-color: #575757;
+    }
+
+    .content {
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+</body>
+  <h1>Fake News Detector in Blue Sky</h1>
+  
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <a href="index.html">Test News</a>
+    <a href="monitor.html">Monitor the Model</a>
+  </div>
+
+  <div class="content">
+    <form id="userForm">
+      <label for="userInput">Type in the title of the news article you want to test:</label>
+      <input type="text" id="userInput" name="userInput" required>
+      <button type="submit">Submit</button>
+    </form>
+
+    <p id="result">Your result will appear here.</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('userForm');
+    const resultParagraph = document.getElementById('result'); // Define the result paragraph
+    const userInputField = document.getElementById('userInput');
+  
+    // Handle form submission
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevent default form submission
+      resultParagraph.textContent = `Please wait a few minutes. The prediction is taking a bit of time.`; // Display the result
+      await sendInput();
+      userInputField.value = ""; // Clear the input field
+    });
+  
+    // Handle Enter keypress in the input field
+    userInputField.addEventListener('keydown', async (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent default Enter behavior (e.g., form submission)
+        resultParagraph.textContent = `Please wait around 5 minutes. The prediction is taking a bit of time.`; // Display the result
+        await sendInput();
+        userInputField.value = ""; // Clear the input field
+      }
+    });
+  
+    // Function to send input to the server
+    async function sendInput() {
+      const userInput = userInputField.value;
+      try {
+        const response = await fetch('https://fake-news-flask-server-image-949207919441.europe-west2.run.app/receive', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ input: userInput }),
+        });
+        if (response.ok) {
+          const responseData = await response.json(); // Parse the JSON response
+          resultParagraph.textContent = `${responseData.results}`; // Display the result
+          userInputField.value = ""; // Clear the input field
+        } else {
+          resultParagraph.textContent = 'Error processing input.';
+        }
+      } catch (error) {
+        resultParagraph.textContent = 'Error processing input.';
+      }
+    }
+  </script>
+</body>
+</html>

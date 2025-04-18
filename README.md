@@ -106,11 +106,11 @@ python app.py
 5. Access the form in your browser:
 
 ```
-http://127.0.0.1:5000/
+https://celdot.github.io/credit_risk_predictor/
 ```
 
 ## Try it Live
 
-- **Frontend** (GitHub Pages): [Visit Website](https://your-github-username.github.io/credit-default-prediction/)
+- **Frontend** (GitHub Pages): [Visit Website](https://celdot.github.io/credit_risk_predictor/)
 - **Backend** (Google Cloud): Receives user input and returns model predictions
 

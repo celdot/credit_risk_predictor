@@ -1,15 +1,16 @@
-# app.py
 import joblib
 import numpy as np
 import pandas as pd
-from flask import Flask, request, send_from_directory
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
+CORS(app)  # Allow requests from your GitHub Pages frontend
 
 @app.route('/')
 def home():
-    return send_from_directory('.', 'index.html')
+    return "Loan Default Predictor API is running."
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -48,10 +49,11 @@ def submit():
         result = "You will default on your loan." if prediction[0] == 1 else "You will not default on your loan."
         print(f"Prediction made: {result}")
 
-        return f"<h2>Prediction Result</h2><p>{result}</p>"
+        return jsonify({"prediction": result})
 
     except Exception as e:
-        return f"<h2>Error</h2><p>{str(e)}</p>"
+        print(f"Error during prediction: {e}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -14,6 +14,7 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    print("Trying to submit form data...")
     try:
         form = request.form
         data = {

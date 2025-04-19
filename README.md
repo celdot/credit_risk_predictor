@@ -53,10 +53,7 @@ Here are the evaluation results (before hyperparameter tuning) for various model
 
 **Confusion Matrix:**
 
-```
-[[2479  199]
- [ 368  213]]
-```
+![Confusion Matrix](figures/confusion_matrix.png)
 
 - **Test Accuracy**: 0.8260  
 - **Validation Accuracy**: 0.8223  
@@ -64,7 +61,7 @@ Here are the evaluation results (before hyperparameter tuning) for various model
 - **Validation set size**: 5,155  
 - **Test set size**: 2,864  
 
-**Classification Report:**
+**Classification Report on the test set:**
 
 ```
               precision    recall  f1-score   support
@@ -87,7 +84,8 @@ cd credit-default-prediction
 2. Create a virtual environment:
 
 ```bash
-python -m venv venv
+python -m venv credit_risk_env
+```
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 ```
 
